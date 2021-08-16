@@ -5,10 +5,12 @@ const PORT = process.env.PORT || 3001;
 
 const mongoose = require("mongoose");
 
+const cors = require("cors");
 const usersModel = require("./models/users");
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect(

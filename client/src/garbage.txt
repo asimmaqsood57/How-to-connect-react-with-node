@@ -1,0 +1,26 @@
+<div className="App">
+      <br />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value);
+        }}
+        name="name"
+        placeholder="name"
+        id=""
+      />{" "}
+      <br />
+      <br />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+        name="email"
+        placeholder="name"
+        id=""
+      />
+      <button>Submit</button>
+    </div>
