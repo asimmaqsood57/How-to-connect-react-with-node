@@ -50,6 +50,15 @@ app.post("/insert", async (req, res) => {
   }
 });
 
+app.get("/read", (req, res) => {
+  usersModel.find({}, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });

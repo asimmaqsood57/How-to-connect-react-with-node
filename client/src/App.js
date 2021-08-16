@@ -1,11 +1,12 @@
 import "./App.css";
 import React from "react";
 import { useState } from "react";
-
+import { useEffect } from "react";
 import axios from "axios";
 function App() {
   const [name, setName] = useState("");
 
+  const [users, setusers] = useState([]);
   const [email, setEmail] = useState("");
 
   const addToDb = () => {
@@ -21,6 +22,13 @@ function App() {
     setName("");
     setEmail("");
   };
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/read").then((response) => {
+      console.log(response.data);
+      setusers(response.data);
+    });
+  }, []);
   return (
     <div className="App">
       <div className="w-full max-w-xs">
@@ -75,6 +83,16 @@ function App() {
           &copy;2020 Acme Corp. All rights reserved.
         </p>
       </div>
+
+      {users.map((user, key) => {
+        return (
+          <div key={key}>
+            <h1>
+              {user.name} , {user.email}
+            </h1>
+          </div>
+        );
+      })}
     </div>
   );
 }
