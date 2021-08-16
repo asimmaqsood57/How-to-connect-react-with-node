@@ -23,6 +23,12 @@ function App() {
     setEmail("");
   };
 
+  const deleteRec = (id) => {
+    axios.delete(`http://localhost:3001/delete/${id}`).then(() => {
+      console.log("record is deleted");
+    });
+  };
+
   useEffect(() => {
     axios.get("http://localhost:3001/read").then((response) => {
       console.log(response.data);
@@ -31,57 +37,32 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <div className="w-full max-w-xs">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
-              Email
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              type="email"
-              placeholder="Username"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none "
-              id="name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              type="text"
-              placeholder="name"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-              onClick={addToDb}
-            >
-              Sign In
-            </button>
-          </div>
-        </form>
-        <p className="text-center text-gray-500 text-xs">
-          &copy;2020 Acme Corp. All rights reserved.
-        </p>
+      <div className="App">
+        <br />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          name="name"
+          placeholder="name"
+          id="name"
+        />{" "}
+        <br />
+        <br />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          name="email"
+          placeholder="name"
+          id="email"
+        />{" "}
+        <br /> <br />
+        <button onClick={addToDb}>Submit</button>
       </div>
 
       {users.map((user, key) => {
@@ -90,6 +71,8 @@ function App() {
             <h1>
               {user.name} , {user.email}
             </h1>
+
+            <button onClick={() => deleteRec(user._id)}>Delete record</button>
           </div>
         );
       })}

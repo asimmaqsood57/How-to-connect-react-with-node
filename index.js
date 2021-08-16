@@ -59,6 +59,13 @@ app.get("/read", (req, res) => {
   });
 });
 
+app.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await usersModel.findByIdAndDelete(id).exec();
+  res.send("record deleted  successfully");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });
